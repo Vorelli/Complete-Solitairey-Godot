@@ -5,7 +5,7 @@
 [node name="Node" type="Node"]
 
 [node name="Card" parent="." instance=ExtResource( 1 )]
-position = Vector2( 273.714, 284.141 )
+position = Vector2( 100.924, 154.422 )
 
 [node name="Card2" parent="." instance=ExtResource( 1 )]
 position = Vector2( 719.003, 244.998 )
