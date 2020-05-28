@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://Card.tscn" type="PackedScene" id=1]
+
+[node name="Node" type="Node"]
+
+[node name="Card" parent="." instance=ExtResource( 1 )]
+position = Vector2( 273.714, 284.141 )
+
+[node name="Card2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 719.003, 244.998 )
