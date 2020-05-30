@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Card.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/Card.gd" type="Script" id=1]
 
 [sub_resource type="StreamTexture" id=1]
 flags = 4
 load_path = "res://.import/card_b_c2_large.png-ed1be69629bbe77407c26817b9c33cab.stex"
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 194.218, 302.554 )
+extents = Vector2( 194, 302 )
 
 [node name="Card" type="Area2D"]
 scale = Vector2( 0.5, 0.5 )
@@ -17,10 +17,6 @@ script = ExtResource( 1 )
 texture = SubResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 2 )
 [connection signal="area_entered" from="." to="." method="_on_Card_area_entered"]
 [connection signal="area_exited" from="." to="." method="_on_Card_area_exited"]
-[connection signal="input_event" from="." to="." method="_on_Card_input_event"]
-[connection signal="mouse_entered" from="." to="." method="_on_Card_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_Card_mouse_exited"]

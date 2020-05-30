@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Scripts/Deck.gd" type="Script" id=1]
+
+[sub_resource type="StreamTexture" id=1]
+flags = 4
+load_path = "res://.import/deck_3_large.png-8d36057423272ffb6fbb9581c5e9576d.stex"
+
+[sub_resource type="DynamicFontData" id=2]
+hinting = 0
+font_path = "res://Inconsolata-Regular.ttf"
+
+[sub_resource type="DynamicFont" id=3]
+size = 52
+font_data = SubResource( 2 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 194.933, 305.248 )
+
+[node name="Deck" type="Area2D"]
+position = Vector2( 1089.15, 536.447 )
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = SubResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -172.0
+margin_top = -280.0
+margin_right = 175.0
+margin_bottom = -194.0
+custom_fonts/font = SubResource( 3 )
+text = "52"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 3
+shape = SubResource( 4 )
+[connection signal="input_event" from="." to="." method="_on_Deck_input_event"]
+[connection signal="mouse_entered" from="." to="." method="enter"]
+[connection signal="mouse_exited" from="." to="." method="exit"]
