@@ -14,10 +14,6 @@ func try_to_pair_cards(child, parent) -> bool:
 	var noChild = parent.child_card == null
 		
 	match parent.columnType:
-		Enums.Column_Type.STOCK:
-			pass
-		Enums.Column_Type.WASTE:
-			pass
 		Enums.Column_Type.TABLEAU:
 			var newChildValueOneLess = int(parent.value) - 1 == int(child.value)
 			var oppositeColor = !_is_red(parent) == _is_red(child)
@@ -26,6 +22,12 @@ func try_to_pair_cards(child, parent) -> bool:
 			var newChildValueOneMore = int(parent.value) + 1 == int(child)
 			var sameSuit = parent.suit == child.suit
 			return noChild && newChildValueOneMore && sameSuit
+		Enums.Column_Type.STOCK:
+			continue
+		Enums.Column_Type.WASTE:
+			continue
+		_:
+			return false
 	return false
 	
 func pair_cards(child, parent):

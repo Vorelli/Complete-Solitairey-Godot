@@ -21,11 +21,11 @@ func _isHidden_set(newVal):
 	refresh()
 func _isHidden_get(): return isHidden
 
-export (String, "STOCK", "WASTE", "TABLEAU", "FOUNDATION") var columnType = Enums.Column_Type.STOCK setget _set_Column_Type, _get_Column_Type
-func _set_Column_Type(newVal):
-	columnType = newVal
+var column = null setget _set_Column, _get_Column
+func _set_Column(newVal):
+	column = newVal
 	refresh()
-func _get_Column_Type(): return columnType
+func _get_Column(): return column
 	
 var parent_card: Area2D = null setget _set_parent_card, _get_parent_card
 func _set_parent_card(newVal):
@@ -43,21 +43,27 @@ const BACK_OF_CARD = "res://Cards/deck_3_large.png"
 var areasInVicinity: Array
 var dragging = false
 var cursorPositionOffset: Vector2
-var temp_z_index
+var _z_index
 signal dropped_on_object(object)
 
 func _on_Hover_Start(): $Sprite.modulate = Color(0.9,0.9,0.9)
 func _on_Hover_End(): 	$Sprite.modulate = Color(1.0,1.0,1.0)
 
+func init(suit, value, z_index):
+	self.suit = suit
+	self.value = value
+	self._z_index = z_index
+	self.z_index = z_index
+
 func _on_Drag_Start():
 	self.cursorPositionOffset = get_viewport().get_mouse_position() - position;
-	temp_z_index = self.z_index
+	_z_index = self.z_index
 	z_index = 100
 	dragging = true; 
 
 func _on_Drag_End(): 
 	dragging = false
-	z_index = temp_z_index
+	z_index = _z_index
 	var closestObject = _get_closest_nearby_object()
 	if(closestObject != null):
 		emit_signal("dropped_on_object", self, closestObject)
