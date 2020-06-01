@@ -1,7 +1,5 @@
 extends Node
 
-class_name Enums
-
 enum Suit {
 	HEARTS,
 	DIAMONDS,

@@ -1,6 +1,6 @@
 extends Node
 
-var Enums = load("res://Scripts/Enums.gd").new()
+onready var Enums = get_node("/root/Enums")
 
 func _is_red(card) -> bool:
 	return true if card.suit == Enums.Suit.DIAMONDS || card.suit == Enums.Suit.HEARTS else false
@@ -8,12 +8,12 @@ func _is_red(card) -> bool:
 func try_to_pair_cards(child, parent) -> bool:
 	var sameChild = parent.child_card == child
 	var parentIsHidden = parent.isHidden
-	var parentContainerStock = parent.columnType == Enums.Column_Type.STOCK
+	var parentContainerStock = false if parent.column == null else parent.column.columnType == Enums.Column_Type.STOCK
 	var defaultRules = sameChild || parentIsHidden || parentContainerStock
 	if(defaultRules): return true
 	var noChild = parent.child_card == null
 		
-	match parent.columnType:
+	match parent.column.columnType:
 		Enums.Column_Type.TABLEAU:
 			var newChildValueOneLess = int(parent.value) - 1 == int(child.value)
 			var oppositeColor = !_is_red(parent) == _is_red(child)
@@ -31,4 +31,27 @@ func try_to_pair_cards(child, parent) -> bool:
 	return false
 	
 func pair_cards(child, parent):
+	if(child.parent_card != null):
+		child.parent_card.child_card = null
+	if(child.column != null):
+		child.column._remove_card(child)
+	parent.child_card = child
+	child.parent_card = parent
+	child.column = parent.column
+	parent.column._add_card(child)
+
+func card_dropped_on_column(card, column):
+	print(card.to_string() + " dropped on " + column.to_string())
 	pass
+
+
+func _object_type(object) -> String:
+	if("columnType" in object):
+		#object is a column
+		return "Column"
+	elif("cards" in object):
+		#object is the stock
+		return "Stock"
+	else:
+		#object is a card
+		return "Card"

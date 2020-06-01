@@ -1,9 +1,7 @@
 extends Area2D
 
 var cards: Array
-
 var card = preload("res://Scenes/Card.tscn")
-var EnumLookup = preload("res://Scripts/EnumLookup.gd")
 var x_min = 96
 var y_min = 151
 var x_max = 1821
@@ -24,7 +22,11 @@ func _ready():
 	shuffle(123)
 	#connect("mouse_exited", self, "_on_drag_off")
 	
+func enter():
+	$Sprite.modulate = Color(0.9, 0.9, 0.9)
+	
 func exit():
+	$Sprite.modulate = Color(1, 1, 1)
 	if(dragging):
 		_on_drag_off()
 
@@ -50,9 +52,9 @@ func _on_drag_off():
 			var cards = Node.new()
 			cards.name = "Cards"
 			add_child(cards)
-		$Cards.add_child(draggingCard)
+		Cards.add_child(draggingCard)
 		draggingCard.position = get_viewport().get_mouse_position()
-		self.get_parent().find_node("Cards")._Track_Card(draggingCard)
+		Cards._Track_Card(draggingCard)
 		draggingCard._on_Drag_Start()
 	_update_label()
 

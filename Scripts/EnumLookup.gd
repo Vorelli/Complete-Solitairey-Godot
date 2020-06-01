@@ -1,4 +1,4 @@
-class_name EnumLookup
+extends Node
 
 const Column_Type = {
 	"0":	"STOCK",

@@ -8,7 +8,7 @@ load_path = "res://.import/deck_3_large.png-8d36057423272ffb6fbb9581c5e9576d.ste
 
 [sub_resource type="DynamicFontData" id=2]
 hinting = 0
-font_path = "res://Inconsolata-Regular.ttf"
+font_path = "res://Fonts/Inconsolata-Regular.ttf"
 
 [sub_resource type="DynamicFont" id=3]
 size = 52

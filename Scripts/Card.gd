@@ -1,8 +1,5 @@
 extends Area2D
 
-var Enums = preload("res://Scripts/Enums.gd")
-var EnumLookup = preload("res://Scripts/EnumLookup.gd")
-
 export (String, "HEARTS", "DIAMONDS", "CLUBS", "SPADES") var suit = Enums.Suit.CLUBS setget _suit_set, _suit_get
 func _suit_set(newVal):
 	suit = newVal
@@ -44,24 +41,26 @@ var areasInVicinity: Array
 var dragging = false
 var cursorPositionOffset: Vector2
 var _z_index
+var origin_position: Vector2
 signal dropped_on_object(object)
 
-func _on_Hover_Start(): $Sprite.modulate = Color(0.9,0.9,0.9)
-func _on_Hover_End(): 	$Sprite.modulate = Color(1.0,1.0,1.0)
+func _on_hover_start(): $Sprite.modulate = Color(0.9,0.9,0.9)
+func _on_hover_end(): 	$Sprite.modulate = Color(1.0,1.0,1.0)
 
-func init(suit, value, z_index):
-	self.suit = suit
-	self.value = value
+func init(_suit, _value, z_index):
+	self.suit = _suit
+	self.value = _value
 	self._z_index = z_index
 	self.z_index = z_index
 
-func _on_Drag_Start():
+func _on_click_start():
 	self.cursorPositionOffset = get_viewport().get_mouse_position() - position;
 	_z_index = self.z_index
+	origin_position = self.position
 	z_index = 100
-	dragging = true; 
+	dragging = true;
 
-func _on_Drag_End(): 
+func _on_click_end(): 
 	dragging = false
 	z_index = _z_index
 	var closestObject = _get_closest_nearby_object()
@@ -85,10 +84,14 @@ func follow():
 	self.position = get_viewport().get_mouse_position() - cursorPositionOffset
 
 func _on_Card_area_entered(area):
-	if(dragging && !area in self.areasInVicinity): self.areasInVicinity.append(area)
+	if(!area in self.areasInVicinity): self.areasInVicinity.append(area)
 
 func _on_Card_area_exited(area):
-	if(dragging): areasInVicinity.remove(areasInVicinity.find(area))
+	var pos = areasInVicinity.find(area)
+	if(pos != -1 && dragging): areasInVicinity.remove(pos)
+	
+func to_string():
+	return EnumLookup.Value[str(value)] + " of " + EnumLookup.Suit[str(suit)]
 		
 func refresh():
 	var cardString = "res://Cards/card_b_" + EnumLookup.Suit[str(suit)].to_lower()[0] + EnumLookup.shortValue[str(value)] + "_large.png"
