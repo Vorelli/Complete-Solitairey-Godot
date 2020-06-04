@@ -8,6 +8,7 @@ load_path = "res://.import/deck_3_large.png-8d36057423272ffb6fbb9581c5e9576d.ste
 extents = Vector2( 96.9483, 151.478 )
 
 [node name="Area2D" type="Area2D"]
+scale = Vector2( 0.5, 0.5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 scale = Vector2( 0.5, 0.5 )

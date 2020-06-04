@@ -26,7 +26,6 @@ config/icon="res://icon.png"
 
 [autoload]
 
-Enums="*res://Scripts/Enums.gd"
 EnumLookup="*res://Scripts/EnumLookup.gd"
 Helper="*res://Scripts/Helper.gd"
 InputManager="*res://Scripts/InputManager.gd"

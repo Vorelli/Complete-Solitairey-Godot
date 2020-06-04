@@ -1,12 +1,35 @@
 extends Area2D
 
-export (String, "HEARTS", "DIAMONDS", "CLUBS", "SPADES") var suit = Enums.Suit.CLUBS setget _suit_set, _suit_get
+enum Suit {
+	HEARTS,
+	DIAMONDS,
+	CLUBS,
+	SPADES
+}
+
+enum Value {
+	ACE,
+	TWO,
+	THREE,
+	FOUR,
+	FIVE,
+	SIX,
+	SEVEN,
+	EIGHT,
+	NINE,
+	TEN,
+	JACK,
+	QUEEN,
+	KING
+}
+
+export (Suit) var suit = Suit.CLUBS setget _suit_set, _suit_get
 func _suit_set(newVal):
 	suit = newVal
 	refresh()
 func _suit_get(): return suit
 
-export (String, "ACE", "TWO", "THREE", "FOUR", "FIVE", "SIX", "SEVEN", "EIGHT", "NINE", "TEN", "JACK", "QUEEN", "KING") var value = Enums.Value.ACE setget _value_set, _value_get
+export (Value) var value = Value.ACE setget _value_set, _value_get
 func _value_set(newVal):
 	value = newVal
 	refresh()
@@ -66,6 +89,8 @@ func _on_click_end():
 	var closestObject = _get_closest_nearby_object()
 	if(closestObject != null):
 		emit_signal("dropped_on_object", self, closestObject)
+	else:
+		_reset_position()
 	
 func _get_closest_nearby_object():
 	if(areasInVicinity.size() == 0): return null
@@ -97,5 +122,5 @@ func refresh():
 	var cardString = "res://Cards/card_b_" + EnumLookup.Suit[str(suit)].to_lower()[0] + EnumLookup.shortValue[str(value)] + "_large.png"
 	$Sprite.texture = load(cardString if !self.isHidden else BACK_OF_CARD)
 	
-
-
+func _reset_position():
+	self.position = origin_position

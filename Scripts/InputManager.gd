@@ -1,5 +1,12 @@
 extends Node
 
+enum Column_Type {
+	STOCK,
+	WASTE,
+	TABLEAU,
+	FOUNDATION
+}
+
 var objects_being_tracked: Array = []
 var objects_being_hovered: Array = []
 var object_being_hovered: Area2D = null
@@ -25,16 +32,19 @@ func _track_object(object):
 #stock can be hovered, clicked
 #cannot be dragged, dropped, dropped on
 
+#hover events
 func _card_stock_waste_hover_start(card):
 	card._on_hover_start()
 func _card_stock_waste_hover_end(card):
 	card._on_hover_end()
 
+#card events
 func _card_click_start(card): card._on_click_start()
 func _card_click_end(card):
 	card._on_click_end()
 	checkForHover()
 
+#stock events
 func _stock_click_start(stock):
 	stock._on_click_start()
 func _stock_click_end(stock):
@@ -100,7 +110,7 @@ func _is_card_and_is_being_dragged(object) -> bool:
 
 func _is_card_waste_and_not_topmost(card) -> bool:
 	var card_has_column = card.column != null
-	var card_in_waste = card_has_column && card.column.columnType == Enums.Column_Type.WASTE
+	var card_in_waste = card_has_column && card.column.columnType == Column_Type.WASTE
 	var card_top_most = card_in_waste && card == card.column.cardArray[card.column.cardArray.size()-1];
 	return card_top_most
 
@@ -131,10 +141,11 @@ func _object_dropped_on_object(childObject, parentObject):
 	if "columnType" in parentObject:
 		Helper.card_dropped_on_column(childObject, parentObject)
 		#object is a column
+	elif "cards" in parentObject:
+		#object is the stock
+		pass
 	else:
 		#should be a card??
 		if Helper.try_to_pair_cards(childObject, parentObject):
 			Helper.pair_cards(childObject, parentObject)
-		else:
-			#can not be placed on 'object'
-			childObject.position = childObject.origin_position
+	childObject._reset_position()

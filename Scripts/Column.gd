@@ -2,7 +2,14 @@ extends Area2D
 
 class_name Column
 
-export (String, "STOCK", "WASTE", "TABLEAU", "FOUNDATION") var columnType = Enums.Column_Type.STOCK setget _set_Column_Type, _get_Column_Type
+enum Column_Type {
+	STOCK,
+	WASTE,
+	TABLEAU,
+	FOUNDATION
+}
+
+export (String, "STOCK", "WASTE", "TABLEAU", "FOUNDATION") var columnType = Column_Type.STOCK setget _set_Column_Type, _get_Column_Type
 var cards = Node.new()
 var cardArray: Array
 
@@ -13,6 +20,7 @@ func _ready():
 	cards.name = "Cards"
 	self.add_child(cards)
 	cardArray.resize(20)
+	print(columnType)
 
 func _add_card(card):
 	cardArray.append(card)
