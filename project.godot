@@ -29,6 +29,7 @@ config/icon="res://icon.png"
 EnumLookup="*res://Scripts/EnumLookup.gd"
 Helper="*res://Scripts/Helper.gd"
 InputManager="*res://Scripts/InputManager.gd"
+Enums="*res://Scripts/Enums.gd"
 
 [display]
 

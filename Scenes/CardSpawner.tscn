@@ -8,16 +8,15 @@ script = ExtResource( 1 )
 
 [node name="Tableau" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1812.01, 900.565 )
-columnType = "TABLEAU"
 
 [node name="Foundation" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1814.73, 587.68 )
-columnType = "FOUNDATION"
+columnType = 3
 
 [node name="Waste" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1814.73, 280.236 )
-columnType = "WASTE"
+columnType = 0
 
 [node name="Stock" parent="." instance=ExtResource( 2 )]
 position = Vector2( 1583.47, 269.353 )
-columnType = "STOCK"
+columnType = 1

@@ -1,35 +1,12 @@
 extends Area2D
 
-enum Suit {
-	HEARTS,
-	DIAMONDS,
-	CLUBS,
-	SPADES
-}
-
-enum Value {
-	ACE,
-	TWO,
-	THREE,
-	FOUR,
-	FIVE,
-	SIX,
-	SEVEN,
-	EIGHT,
-	NINE,
-	TEN,
-	JACK,
-	QUEEN,
-	KING
-}
-
-export (Suit) var suit = Suit.CLUBS setget _suit_set, _suit_get
+var suit = Enums.Suit.CLUBS setget _suit_set, _suit_get
 func _suit_set(newVal):
 	suit = newVal
 	refresh()
 func _suit_get(): return suit
 
-export (Value) var value = Value.ACE setget _value_set, _value_get
+var value = Enums.Value.ACE setget _value_set, _value_get
 func _value_set(newVal):
 	value = newVal
 	refresh()

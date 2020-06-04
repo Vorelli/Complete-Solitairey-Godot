@@ -2,14 +2,7 @@ extends Area2D
 
 class_name Column
 
-enum Column_Type {
-	STOCK,
-	WASTE,
-	TABLEAU,
-	FOUNDATION
-}
-
-export (String, "STOCK", "WASTE", "TABLEAU", "FOUNDATION") var columnType = Column_Type.STOCK setget _set_Column_Type, _get_Column_Type
+export(Enums.Column_Type) var columnType = Enums.Column_Type.TABLEAU
 var cards = Node.new()
 var cardArray: Array
 
